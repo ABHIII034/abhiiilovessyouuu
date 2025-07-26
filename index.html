@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Abhiiilovesyouuu-Say YES! 💍</title>
+
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+  <style>
+
+    .no-btn{position:absolute;transition:all .05s;cursor:pointer;touch-action:none}
+
+ 
+    .flash{animation:flash .05s linear infinite}
+
+   
+    .spin   {animation:spin   .6s ease-out}
+    .zoomer {animation:zoomer .5s ease-out}
+    .warp   {animation:warp   .4s ease-out}
+
+  
+    .particle{position:fixed;font-size:2rem;pointer-events:none;
+              animation:fall 3s linear forwards}
+
+ 
+    .footer-grad{background-image:linear-gradient(135deg,#06b6d4,#4f46e5)}
+
+    @keyframes flash{
+      0%{background:#f43f5e;box-shadow:0 0 30px #f43f5e}
+      25%{background:#fbbf24;box-shadow:0 0 30px #fbbf24}
+      50%{background:#10b981;box-shadow:0 0 30px #10b981}
+      75%{background:#3b82f6;box-shadow:0 0 30px #3b82f6}
+      100%{background:#a855f7;box-shadow:0 0 30px #a855f7}
+    }
+    @keyframes spin   {to{transform:scale(.6) rotate(720deg)}}
+    @keyframes zoomer {50%{transform:scale(1.7)}}
+    @keyframes warp{
+      0%{transform:translate(0,0) rotate(0)}
+      25%{transform:translate(-50px,50px)  rotate(90deg)}
+      50%{transform:translate(50px,-50px)  rotate(180deg)}
+      75%{transform:translate(-40px,-40px) rotate(270deg)}
+      100%{transform:translate(0,0)        rotate(360deg)}
+    }
+    @keyframes fall{to{transform:translateY(100vh) rotate(1turn);opacity:0}}
+
+    
+    .social-icon{background:linear-gradient(135deg,var(--from),var(--to));
+                 transition:.3s;position:relative;overflow:hidden}
+    .social-icon:hover{transform:translateY(-6px) scale(1.1);box-shadow:0 12px 25px rgba(0,0,0,.25)}
+    .social-icon::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;
+                         background:linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent);
+                         transition:left .5s}
+    .social-icon:hover::before{left:100%}
+
+    @media (max-width:768px){
+      .no-btn{padding:12px 24px !important;font-size:16px !important}
+    }
+    @media (max-width:480px){
+      .no-btn{padding:10px 20px !important;font-size:14px !important}
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col bg-gradient-to-br from-pink-100 via-amber-100 to-purple-200">
+
+
+<div id="nameModal" class="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4">
+  <div class="bg-white rounded-2xl p-8 max-w-sm w-full text-center">
+    <h2 class="text-2xl font-bold mb-4">May I know the name of the one I adore? 💕</h2>
+    <input id="nameInput" type="text" placeholder="Type here…" 
+           class="w-full px-4 py-3 border rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-pink-400">
+    <button id="saveName"
+            class="w-full bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 rounded-lg">
+      Continue 
+    </button>
+  </div>
+</div>
+
+<main class="flex-1 flex items-center justify-center px-6 relative overflow-hidden">
+  <div class="text-center max-w-md w-full relative z-10">
+    <h1 class="text-4xl font-bold text-gray-800 mb-6">
+      <span id="herName">Beautiful</span>, Will You Marry Me?
+    </h1>
+    <div class="text-8xl mb-8 animate-bounce">💍</div>
+    <p class="text-lg text-gray-600 mb-8">With endless love — Abhi</p>
+
+    <button id="yesBtn"
+            class="bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-8 rounded-lg text-xl transition-transform">
+      YES! 💖
+    </button>
+
+    <div id="msgBox" class="mt-8 hidden">
+      <p id="msgText"
+         class="bg-yellow-100 border border-yellow-400 rounded-lg p-4 text-yellow-800 font-medium">
+        You can't escape love! 😜
+      </p>
+    </div>
+  </div>
+
+
+  <button id="noBtn"
+          class="no-btn bg-rose-500 hover:bg-rose-600 text-white font-bold py-4 px-8 rounded-lg text-xl"
+          style="top:60%;left:50%;transform:translate(-50%,-50%)">
+    No 😅
+  </button>
+</main>
+
+
+<div id="celebrateModal"
+     class="fixed inset-0 bg-black/70 hidden z-50 flex items-center justify-center p-4">
+  <div class="bg-white rounded-3xl p-10 max-w-lg w-11/12 text-center">
+    <div class="text-7xl animate-bounce mb-6">🎉</div>
+    <h2 id="finalBanner" class="text-3xl font-bold text-teal-600 mb-4">She said YES!</h2>
+    <p class="text-gray-700 mb-8 text-lg">Time to plan the most epic happily-ever-after! 🌟</p>
+    <button id="partyBtn"
+            class="bg-gradient-to-r from-emerald-500 to-cyan-600 text-white font-bold py-4 px-8 rounded-full text-xl hover:scale-110 transition-all">
+      Let's Celebrate! 🥂
+    </button>
+  </div>
+</div>
+
+
+<footer class="footer-grad text-white py-8">
+  <div class="container mx-auto px-6 text-center">
+    <h3 class="text-2xl font-bold mb-6">Follow Abhi</h3>
+    <div class="flex justify-center gap-6">
+
+      <a href="https://instagram.com/abhithenext" target="_blank"
+         class="social-icon w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center shadow-lg"
+         style="--from:#fd5949;--to:#d6249f">
+        <i class="fab fa-instagram text-lg sm:text-xl"></i>
+      </a>
+
+      <a href="https://www.snapchat.com/add/abhithenext?share_id=Xd719ExNJzo&locale=en-US" target="_blank"
+         class="social-icon w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center shadow-lg"
+         style="--from:#fffc00;--to:#ff8c00">
+        <i class="fab fa-snapchat-ghost text-lg sm:text-xl"></i>
+      </a>
+
+      <a href="https://github.com/ABHIII034" target="_blank"
+         class="social-icon w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center shadow-lg"
+         style="--from:#24292e;--to:#6e5494">
+        <i class="fab fa-github text-lg sm:text-xl"></i>
+      </a>
+
+    </div>
+    <p class="mt-6 text-sm opacity-80">© 2024 Abhi · Made with infinite ❤️</p>
+  </div>
+</footer>
+
+<script>
+
+const modal      = document.getElementById('nameModal');
+const nameInput  = document.getElementById('nameInput');
+const saveBtn    = document.getElementById('saveName');
+const herSpan    = document.getElementById('herName');
+
+const yesBtn     = document.getElementById('yesBtn');
+const noBtn      = document.getElementById('noBtn');
+const msgBox     = document.getElementById('msgBox');
+const msgText    = document.getElementById('msgText');
+
+const celModal   = document.getElementById('celebrateModal');
+const finalBanner= document.getElementById('finalBanner');
+const partyBtn   = document.getElementById('partyBtn');
+
+const noTexts = [
+ 'No 😅','Nope! 🚀','Never! 🌪️','Try again! 😂','Still no! ⚡','Nada! 👻',
+ 'I insist! 😈','Too slow! 🏃','Catch me! 💨','No way! 🤖','Denied! 🚫',
+ 'Dream on! 😴','Not today! 🥷','Keep trying! 🌀','You wish! 🙃','Impossible! 🪄'
+];
+
+const messageTexts = [
+ 'You cannot escape love! 😜',
+ 'Love always wins! 💕',
+ 'I am faster than light! ✨',
+ 'I am a quantum button! ⚛️',
+ 'Give in to love! 😘',
+ 'Resistance is futile! 🤖',
+ 'Catch me if you can! 🏃‍♀️',
+ 'Too slow! Try harder! 😆',
+ 'I am everywhere! 👻',
+ 'Love is inevitable! 💖'
+];
+
+
+let clickCount = 0;
+let isMoving = false;
+let tracker;
+
+
+saveBtn.onclick = function() {
+  const name = nameInput.value.trim();
+  if (!name) return;
+  herSpan.textContent = name;
+  modal.style.display = 'none';
+  startTracking();
+};
+
+nameInput.onkeypress = function(e) {
+  if (e.key === 'Enter') saveBtn.click();
+};
+
+
+yesBtn.onclick = function() {
+  clearInterval(tracker);
+  finalBanner.textContent = herSpan.textContent + ' said YES!';
+  celModal.classList.remove('hidden');
+  confetti();
+};
+
+partyBtn.onclick = function() {
+  celModal.classList.add('hidden');
+};
+
+document.onmousemove = function(e) {
+  window.mouseX = e.clientX;
+  window.mouseY = e.clientY;
+};
+
+
+function startTracking() {
+  tracker = setInterval(function() {
+    if (isMoving) return;
+    
+    const rect = noBtn.getBoundingClientRect();
+    const buttonX = rect.left + rect.width / 2;
+    const buttonY = rect.top + rect.height / 2;
+    const mouseX = window.mouseX || 0;
+    const mouseY = window.mouseY || 0;
+    
+    const distance = Math.sqrt(
+      Math.pow(mouseX - buttonX, 2) + Math.pow(mouseY - buttonY, 2)
+    );
+    
+    if (distance < 250) {
+      escape();
+    }
+  }, 10);
+}
+
+noBtn.onmouseenter = escape;
+noBtn.onclick = function(e) {
+  e.preventDefault();
+  escape();
+  showMessage();
+};
+noBtn.oncontextmenu = function(e) {
+  e.preventDefault();
+  escape();
+};
+
+document.onkeydown = function(e) {
+  if (e.key === 'Tab' && e.target === noBtn) {
+    e.preventDefault();
+    escape();
+  }
+};
+
+function escape() {
+  if (isMoving) return;
+  isMoving = true;
+  clickCount++;
+
+  const W = window.innerWidth;
+  const H = window.innerHeight;
+  const footerHeight = 200; 
+  const safeHeight = H - footerHeight;
+  
+  let x = Math.random() * (W - 150) + 75; 
+  let y = Math.random() * (safeHeight - 150) + 75; 
+  if (clickCount > 5 && Math.random() < 0.5) { 
+    x = Math.random() < 0.5 ? -200 : W + 200; 
+    y = Math.random() * (safeHeight - 150) + 75;
+  }
+  
+  if (clickCount > 10) {
+    x = Math.random() * W * 1.5 - W * 0.25; 
+    y = Math.random() * (safeHeight - 150) + 75; 
+  }
+
+  noBtn.style.left = x + 'px';
+  noBtn.style.top = Math.min(y, safeHeight - 100) + 'px'; 
+
+  const scale = Math.max(0.25, 1 - clickCount * 0.05);
+  const rotation = Math.random() * 120 - 60;
+  noBtn.style.transform = 'scale(' + scale + ') rotate(' + rotation + 'deg)';
+
+  /* label & effect */
+  noBtn.textContent = noTexts[clickCount % noTexts.length];
+  
+  const animations = ['spin', 'zoomer', 'warp'];
+  const randomAnim = animations[Math.floor(Math.random() * 3)];
+  noBtn.classList.add(randomAnim);
+  
+  if (clickCount > 7) {
+    noBtn.classList.add('flash');
+  }
+
+  setTimeout(function() {
+    noBtn.classList.remove(randomAnim);
+    isMoving = false;
+  }, 600);
+
+  if (clickCount >= 12) {
+    noBtn.style.display = 'none';
+    clearInterval(tracker);
+    yesBtn.classList.add('flash', 'animate-bounce', 'scale-125');
+    msgText.textContent = 'The button gave up! Only YES remains! 😘';
+    msgBox.classList.remove('hidden');
+  }
+}
+
+function showMessage() {
+  const randomIndex = Math.floor(Math.random() * messageTexts.length);
+  msgText.textContent = messageTexts[randomIndex];
+  msgBox.classList.remove('hidden');
+  
+  setTimeout(function() {
+    msgBox.classList.add('hidden');
+  }, 2000);
+}
+
+
+function confetti() {
+  const emojis = ['🎉', '💖', '🥳', '✨', '💍', '🎊'];
+  
+  for (let i = 0; i < 120; i++) {
+    setTimeout(function() {
+      const particle = document.createElement('div');
+      particle.className = 'particle';
+      particle.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      particle.style.left = Math.random() * window.innerWidth + 'px';
+      document.body.appendChild(particle);
+      
+      setTimeout(function() {
+        particle.remove();
+      }, 3000);
+    }, i * 25);
+  }
+}
+</script>
+
+</body>
+</html>
